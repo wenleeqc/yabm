@@ -1,8 +1,8 @@
 # YABM - Yet Another Bookmark Manager
-![YABM screenshot](yabm-screenshot.png)
+![YABM screenshot](yabm-screenshot.png | width=100)
 A chrome extension to quickly store and manage websites.
 
-Features:
+## Features:
 - Save current tab or manually input web address
 - Delete bookmarks
 - Uses localStorage as a makeshift database.
