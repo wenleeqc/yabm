@@ -1,5 +1,5 @@
 # YABM - Yet Another Bookmark Manager
-![YABM screenshot](yabm-screenshot.png | width=100)
+<img src="yabm-screenshot.png" width=100 alt="YABM screenshot">
 A chrome extension to quickly store and manage websites.
 
 ## Features:
