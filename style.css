@@ -74,8 +74,6 @@ li {
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
-    border-bottom: 3px solid var(--primary);
-    border-radius: 3px;
     padding-bottom: 1rem;
 }
 
@@ -137,20 +135,17 @@ button:hover {
     cursor: pointer;
 }
 
+.surprise-btn-link {
+    width: auto;
+}
+
 #save-tab-btn,
-#delete-toggle {
+#surprise-btn {
     flex-grow: 1;
 }
 
-.enabled {
-    background-color: var(--secondary);
-    border-color: var(--secondary);
-    color: var(--background);
-}
-
-.enabled:hover {
-    filter: brightness(60%);
-    color: var(--background);
+#surprise-btn {
+    width: 145px;
 }
 
 #more-features-toggle {
@@ -195,37 +190,27 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ccc;
+    background-color: #ff9090;
     border-radius: 50%;
     width: 16px;
     height: 16px;
     transition: all 0.2s ease-in-out;
 }
 
-.delete:hover {
-    background-color: #ff9090;
+.delete:before,
+.delete:after {
+    position: absolute;
+    content: "";
+    border: .9px solid rgb(107, 0, 0);
+    width: 8px;
 }
 
 .delete:before {
-    position: absolute;
-    content: "";
-    border: .9px solid black;
-    width: 8px;
     transform: rotate(-45deg);
 }
 
 .delete:after {
-    position: absolute;
-    content: "";
-    border: .9px solid black;
-    width: 8px;
-    transform: rotate(45deg)
-}
-
-.delete:hover:before,
-.delete:hover:after {
-    content: "";
-    border: .9px solid rgb(107, 0, 0);
+    transform: rotate(45deg);
 }
 
 .hidden {
@@ -234,4 +219,11 @@ button:hover {
 
 .remove {
     display: none;
+}
+
+.hr {
+    background-color: var(--primary);
+    border-radius: 20px;
+    height: 3px;
+    width: 100%;
 }

@@ -1,47 +1,15 @@
 let myLinks = JSON.parse(localStorage.getItem('myLinks')) ? JSON.parse(localStorage.getItem('myLinks')) : [];
 
-const inputBtn = document.querySelector('#input-btn');
-const inputBox = document.querySelector('#input-box');
 const tabBtn = document.querySelector('#save-tab-btn');
-const deleteToggleBtn = document.querySelector('#delete-toggle');
+const surpriseBtn = document.querySelector('.surprise-btn-link');
 const moreFeaturesToggle = document.querySelector('#more-features-toggle');
 const moreFeatures = document.querySelector('.more-features');
+const inputBtn = document.querySelector('#input-btn');
+const inputBox = document.querySelector('#input-box');
 const clearBtn = document.querySelector('#clear-btn');
 const warningText = document.querySelector('.warning');
 const linkContainer = document.querySelector('.link-container');
 const lis = document.querySelectorAll('li');
-
-deleteToggleBtn.addEventListener('click', () => {
-    const deleteBtns = document.querySelectorAll(".delete");
-    const imgs = document.querySelectorAll('img');
-    deleteToggleBtn.classList.toggle('enabled');
-
-    for(btn of deleteBtns) {
-        btn.classList.toggle('hidden');
-    }
-    for(img of imgs) {
-        img.classList.toggle('hidden');
-    }
-});
-
-moreFeaturesToggle.addEventListener('click', () => {
-    moreFeatures.classList.toggle('remove');
-    if(moreFeatures.classList.contains('remove')) {
-        moreFeaturesToggle.textContent = "more features..."
-    } else {
-        moreFeaturesToggle.textContent = 'less features...'
-    }
-});
-
-clearBtn.addEventListener('mouseover', () => {
-    warningText.style.opacity = '1';
-});
-
-clearBtn.addEventListener('mouseout', () => {
-    warningText.style.opacity = '0';
-})
-
-clearBtn.addEventListener('click', deleteAllLinks); 
 
 tabBtn.addEventListener("click", () => {    
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -53,6 +21,23 @@ tabBtn.addEventListener("click", () => {
         }
     })
 })
+
+surpriseBtn.addEventListener('click', () => {
+    if(!!myLinks.length) {
+        const randomNumber = Math.floor(Math.random() * myLinks.length);
+        const randomLink = `https://${myLinks[randomNumber]}`;
+        surpriseBtn.href = randomLink;
+    }
+});
+
+moreFeaturesToggle.addEventListener('click', () => {
+    moreFeatures.classList.toggle('remove');
+    if(moreFeatures.classList.contains('remove')) {
+        moreFeaturesToggle.textContent = "more features..."
+    } else {
+        moreFeaturesToggle.textContent = 'less features...'
+    }
+});
 
 inputBox.addEventListener('keyup', (e) => {
     if(e.key === "Enter" || e.keyCode === 13) {
@@ -76,6 +61,16 @@ inputBtn.addEventListener('click', () => {
     }
 });
 
+clearBtn.addEventListener('mouseover', () => {
+    warningText.style.opacity = '1';
+});
+
+clearBtn.addEventListener('mouseout', () => {
+    warningText.style.opacity = '0';
+})
+
+clearBtn.addEventListener('click', deleteAllLinks); 
+
 renderLinks()
 
 function renderLinks() {
@@ -97,16 +92,14 @@ function renderLink(link) {
     const newDeleteBtn = document.createElement('span');
     newDeleteBtn.classList.add('delete');
     newDeleteBtn.classList.add('xbtn');
+    newDeleteBtn.classList.add('hidden');
     addRemoveLinkListener(newDeleteBtn);
 
     const newImg = document.createElement('img');
     newImg.src = faviconURL(`https://${link}`)
 
-    if(!deleteToggleBtn.classList.contains('enabled')) {
-        newDeleteBtn.classList.add('hidden');
-    } else {
-        newImg.classList.add('hidden')
-    }
+    addDeleteHoverOn(newSpan, newImg, newDeleteBtn);
+    addDeleteHoverOff(newSpan, newImg, newDeleteBtn);
 
     newSpan.append(newImg, newDeleteBtn);
     newLi.append(newSpan, newA);
@@ -120,6 +113,20 @@ function addRemoveLinkListener(link) {
         link.parentElement.parentElement.remove();
         localStorage.setItem('myLinks', JSON.stringify(myLinks));
     });
+}
+
+function addDeleteHoverOn(container, img, deletebtn) {
+    container.addEventListener('mouseover', () => {
+        img.classList.add('hidden');
+        deletebtn.classList.remove('hidden');
+    })
+}
+
+function addDeleteHoverOff(container, img, deletebtn) {
+    container.addEventListener('mouseout', () => {
+        deletebtn.classList.add('hidden');
+        img.classList.remove('hidden');
+    })
 }
 
 function deleteAllLinks() {
