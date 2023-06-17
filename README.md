@@ -4,7 +4,8 @@ A chrome extension to quickly store and manage websites.
 
 ## Features:
 - Save current tab or manually input web address
-- Delete bookmarks
+- Ability to delete bookmarks
+- Random link button
 - Uses localStorage as a makeshift database
 - Dark and light themes
 
