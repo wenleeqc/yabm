@@ -16,3 +16,4 @@ A chrome extension to quickly store and manage bookmarks.
 - HTML
 - CSS
 - JavaScript
+- Chrome API
